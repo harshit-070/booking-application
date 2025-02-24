@@ -1,50 +1,68 @@
-# React + TypeScript + Vite
+# Event Booking System (MERN - Frontend)
+Live Demo: https://booking-application-sigma.vercel.app/
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Application Image](src/assets/image.png)
 
-Currently, two official plugins are available:
+## Overview
+This project is a React-based event booking system that allows users to book event slots, cancel bookings, and manage a waiting list. It utilizes **TypeScript**, **Tailwind CSS**, and **localStorage** for persistent state management.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- Display available slots for an event.
+- Allow users to book available slots.
+- Cancel bookings and update slot availability.
+- Manage a waiting list when slots are full.
+- Automatically allocate slots to users on the waiting list when a booking is canceled.
+- Persistent state management using `localStorage`.
+- Reset functionality to restore initial slot count.
 
-## Expanding the ESLint configuration
+## Setup Instructions
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Prerequisites
+Ensure you have the following installed:
+- **Node.js** (Latest LTS recommended)
+- **npm** or **yarn**
 
-- Configure the top-level `parserOptions` property like this:
+### Installation
+1. Clone the repository:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+git clone https://github.com/harshit-070/booking-application
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+2. Navigate to the project directory:
 ```
+cd booking-application
+```
+3. Install dependencies:
+```
+npm install 
+```
+
+### Running the Application
+Start the development server:
+The app will run on `http://localhost:5173/`.
+
+## State Management Approach
+- A **custom React hook** (or Context API) is used to manage booking state.
+- Data is **persisted in `localStorage`**, ensuring state is maintained across page refreshes.
+- The state includes:
+  - Available slots
+  - Confirmed bookings
+  - Waiting list
+- The waiting list is **automatically updated** when slots become available.
+
+## Booking Flow
+1. **Booking**
+   - Clicking "Book Now" decreases available slots and adds a booking.
+   - If no slots are available, users are given the option to join the waiting list.
+2. **Cancellation**
+   - Users can cancel their bookings, freeing up a slot.
+   - If users are on the waiting list, the first in line is automatically booked.
+3. **Reset**
+   - A "Reset" button allows reinitialization of the system from environment variables.
+
+## Error Handling
+- Prevents overbooking when slots are full.
+- Handles edge cases, ensuring a smooth user experience.
+
+
